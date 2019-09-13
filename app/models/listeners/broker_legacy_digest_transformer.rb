@@ -1,6 +1,5 @@
 module Listeners
   class BrokerLegacyDigestTransformer < Amqp::Client
-    CARRIER_NAME_MAP = ExchangeInformation.legacy_carrier_mappings
 
     def log_response(key, code, headers, body)
       broadcaster = Amqp::EventBroadcaster.new(connection)
@@ -14,18 +13,18 @@ module Listeners
       broadcaster.broadcast(response_properties, body.to_s)
     end
 
-    def publish_single_legacy_xml(ex, headers, digest_xml)
+    def publish_single_legacy_xml(ex, digest_xml)
       ex.publish(digest_xml, {
                                :routing_key => "info.events.trading_partner.legacy_broker_digest.published"
                            })
     end
 
-    def publish_broker_xml(delivery_info, headers, digest_xml)
+    def publish_broker_xml(delivery_info, digest_xml)
       adapter = LegacyBrokerXmlAdapter.new(digest_xml)
       adapter.create_output do |output|
         with_confirmed_channel do |chan|
           ex = chan.fanout(ExchangeInformation.event_publish_exchange, :durable => true)
-          publish_single_legacy_xml(ex, headers, output.read)
+          publish_single_legacy_xml(ex, output.read)
         end
       end
       channel.acknowledge(delivery_info.delivery_tag, false)
@@ -33,8 +32,7 @@ module Listeners
 
     def on_message(delivery_info, properties, payload)
       digest_xml = payload   # encoded broker digest zip
-      headers = properties.headers || {}
-      publish_broker_xml(delivery_info, headers, digest_xml)
+      publish_broker_xml(delivery_info, digest_xml)
     end
 
     def self.queue_name

@@ -63,7 +63,7 @@ class LegacyBrokerXmlAdapter
     end
     @broker_xml_output.write(XML_TRAILER)
     @broker_xml_output.rewind
-    yield @broker_xml_output if block_given?
+    yield @broker_xml_output
 
     @broker_xml_output.close
     @broker_xml_output.unlink
