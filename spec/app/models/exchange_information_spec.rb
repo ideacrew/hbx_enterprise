@@ -19,4 +19,7 @@ describe ExchangeInformation do
   it_behaves_like "a configuration lookup", 'processing_failure_queue'
   it_behaves_like "a configuration lookup", 'event_exchange'
   it_behaves_like "a configuration lookup", 'request_exchange'
+  it_behaves_like "a configuration lookup", 'broker_xml_drop_url'
+  it_behaves_like "a configuration lookup", 'b2b_integration_api_key'
+  it_behaves_like "a configuration lookup", 'pp_sftp_broker_digest_path'
 end

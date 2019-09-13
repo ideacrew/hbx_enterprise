@@ -10,13 +10,13 @@
       <id>ce0e99119f154830a7a192eb48aff319</id>
     </id>
     <person_name>
-      <person_surname>Murray</person_surname>
-      <person_given_name>Bill</person_given_name>
+      <person_surname>M</person_surname>
+      <person_given_name>B</person_given_name>
     </person_name>
     <addresses>
       <address>
         <type>urn:openhbx:terms:v1:address_type#home</type>
-        <address_line_1>609 H St, NE</address_line_1>
+        <address_line_1> NE</address_line_1>
         <location_city_name>Washington</location_city_name>
         <location_state_code>DC</location_state_code>
         <postal_code>20002</postal_code>
