@@ -3,7 +3,7 @@
     %ns1:npn= broker_role[:npn].strip
     %ns1:license
       %ns1:license_number= broker_role[:npn].strip
-      %ns1:state= "DC"
+      %ns1:state= ExchangeInformation.hbx_id.upcase.gsub!(/\d+/,"")
     %ns2:vcard{:'xmlns:ns2'=>"urn:ietf:params:xml:ns:vcard-4.0"}
       %ns2:fn= individual[:person][:name_full].present? ? individual[:person][:name_full].strip : individual[:person][:name_first].strip + " " + individual[:person][:name_last].strip
       %ns2:n
