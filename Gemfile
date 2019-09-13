@@ -31,7 +31,8 @@ gem 'forkr', '1.0.2'
 gem 'net-ssh', '2.9.1'
 gem 'net-sftp', '2.1.2'
 gem 'json', '~> 1.8.5'
-
+gem 'rubyzip'
+gem 'httparty'
 # Or Padrino Edge
 # gem 'padrino', :github => 'padrino/padrino-framework'
 
