@@ -1,0 +1,61 @@
+- individual[:broker_roles].each do |broker_role|
+  %ns1:broker
+    %ns1:npn= broker_role[:npn].strip
+    %ns1:license
+      %ns1:license_number= broker_role[:npn].strip
+      %ns1:state= "DC"
+    %ns2:vcard{:'xmlns:ns2'=>"urn:ietf:params:xml:ns:vcard-4.0"}
+      %ns2:fn= individual[:person][:name_full].present? ? individual[:person][:name_full].strip : individual[:person][:name_first].strip + " " + individual[:person][:name_last].strip
+      %ns2:n
+        %ns2:surname= individual[:person][:name_last].strip
+        %ns2:given= individual[:person][:name_first].strip
+      %ns2:org= broker_role[:broker_agency][:display_name].strip
+      - if broker_role[:broker_agency].keys.include? :office_locations
+        - broker_role[:broker_agency][:office_locations].each do |office_location|
+          - address = office_location[:address]
+          - phone = office_location[:phone]
+          %ns2:adr
+            %ns2:parameters
+              %ns2:type
+                %ns2:text= address[:address_type].strip
+            %ns2:street= address[:address_1].strip
+            - if address[:address_2].present?
+              %ns2:street= address[:address_2].strip
+            %ns2:locality= address[:city].strip
+            %ns2:region= address[:state].strip
+            %ns2:code{ :'xsi:type'=>"xsd:string"}= address[:postal_code].strip
+          - if phone.present?
+            - if (phone[:phone_number].present?) && (phone[:phone_number].gsub(/[^0-9]/,'').length == 10)
+              - phone_number = phone[:phone_number]
+            - elsif (phone[:phone_number].present?) && (phone[:phone_number].gsub(/[^0-9]/,'').length > 10)
+              - phone_number = phone[:phone_number][0..9]
+            - else
+              - phone_number = "0000000000"
+            %ns2:tel
+              %ns2:parameters
+                %ns2:type
+                  %ns2:text= phone[:phone_type].strip
+              %ns2:uri= "tel:+1-" + phone_number.gsub(/[^0-9]/,'').insert(-5, '-').insert(-9, '-')
+          - else
+            %ns2:tel
+              %ns2:parameters
+                %ns2:type
+                  %ns2:text= 'work'
+              %ns2:uri= "tel:+1-" + "000-000-0000"
+          - individual[:person][:emails].each do |email|
+            - next if email[:email_type] != "work"
+            %ns2:email
+              %ns2:parameters
+                %ns2:type
+                  %ns2:text= email[:email_type].strip
+              %ns2:text= email[:email_address].strip
+            - break
+    - if broker_role[:broker_payment_account]
+      %ns1:broker_payment_accounts
+        %ns1:broker_payment_account
+          %ns1:routing_number= broker_role[:broker_payment_account][:routing_number]
+          %ns1:account_number= broker_role[:broker_payment_account][:account_number]
+          %ns1:account_active_on= broker_role[:broker_payment_account][:account_active_on]
+    %ns1:exchange_id= broker_role[:npn].strip
+    %ns1:exchange_status= "ACTIVE"
+    %ns1:exchange_version= "#{Date.today.yday}"
