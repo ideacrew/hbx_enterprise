@@ -17,9 +17,6 @@ jobs:
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: 2.3.7
-    - name: Install Bundler
-      run: |
-        gem install bundler --version="2.1.4"
     - name: Cache Gems
       uses: actions/cache@v1
       with:
