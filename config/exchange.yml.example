@@ -30,5 +30,7 @@ pp_sftp_username: "pp_test_user"
 pp_sftp_password: "pp_test_path"
 pp_sftp_employer_digest_path: "/test/"
 pp_sftp_enrollment_path: "/test/Updates/"
+pp_sftp_broker_digest_path: "/test/Brokers"
+broker_xml_drop_url: "https://"
 legacy_carrier_mappings:
   "bcbs": GHMSI
