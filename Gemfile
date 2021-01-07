@@ -17,7 +17,7 @@ gem 'activemodel', '4.1.8'
 gem 'faraday', '0.11.0'
 
 # Component requirements
-gem 'haml', '4.0.6'
+gem 'haml', '5.0.0'
 
 # Test requirements
 gem 'rspec', :group => 'test'
