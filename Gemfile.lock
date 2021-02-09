@@ -1,5 +1,5 @@
 GIT
-  remote: https://github.com/dchbx/nfp_integration.git
+  remote: https://github.com/ideacrew/nfp_integration.git
   revision: d18de451814725fec2de74e9d580e041a7d9b9e8
   tag: 0.0.11
   specs:
@@ -162,6 +162,7 @@ PLATFORMS
 DEPENDENCIES
   activemodel (= 4.1.8)
   activesupport (= 4.1.8)
+  bundler (~> 1.0)
   bunny (= 1.6.3)
   capistrano (= 3.2.1)
   capistrano-bundler
@@ -184,4 +185,4 @@ DEPENDENCIES
   unicorn (= 4.8.3)
 
 BUNDLED WITH
-   1.15.3
+   1.17.3

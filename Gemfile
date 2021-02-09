@@ -11,6 +11,7 @@ source 'https://rubygems.org'
 # gem 'oj'
 
 # Project requirements
+gem 'bundler', "~> 1.0"
 gem 'rake'
 gem 'activesupport', '4.1.8'
 gem 'activemodel', '4.1.8'
@@ -41,7 +42,7 @@ gem 'json', '~> 1.8.5'
 # end
 
 # nfp gem for parsing and integration
-gem 'nfp_integration', git:  "https://github.com/dchbx/nfp_integration.git", :tag => '0.0.11'
+gem 'nfp_integration', git:  "https://github.com/ideacrew/nfp_integration.git", :tag => '0.0.11'
 
 
 group :production do

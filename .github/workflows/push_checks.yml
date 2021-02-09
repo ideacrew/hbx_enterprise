@@ -23,7 +23,7 @@ jobs:
             ${{ runner.os }}-gluedb-gems-${{ hashFiles('**/Gemfile.lock') }}
       - name: bundle install
         run: |
-          sudo gem install bundler -v '1.15.3'
+          sudo gem install bundler -v '1.17.3'
           bundle config path vendor/bundle
           bundle install
       - name: run tests
