@@ -21,12 +21,15 @@
 
 require 'net/http'
 require 'pry'
+require 'nokogiri'
 
-dir_path = "" # Location of CVs. e.g. /Users/Downloads/employers_0321/
-url_string = "" # REST URL where the project is running e.g. http://localhost:3004/employers/legacy_xml
+# dir_path = "/Users/saidineshmekala/IDEACREW/hbx_enterprise/employer_xmls.v2/" # Location of CVs. e.g. /Users/Downloads/employers_0321/
+dir_path ="/Users/saidineshmekala/xml/test/"
+url_string = "http://localhost:3001/employers/legacy_xml" # REST URL where the project is running e.g. http://localhost:3004/employers/legacy_xml
+XML_NS = {:cv => "http://openhbx.org/api/terms/1.0" }
 
 def post_xml url_string, xml_string
-  uri = URI.parse url_string
+  uri = URI.parse URI.encode url_string
   request = Net::HTTP::Post.new uri.path
   request.body = xml_string
   request.content_type = 'text/xml'
@@ -34,7 +37,34 @@ def post_xml url_string, xml_string
   response.body
 end
 
+# Dir.glob("#{dir_path}/**/*").each do |file_path|
+#   xml_string = File.read(file_path)
+#   post_xml url_string, xml_string
+# end
+
 Dir.glob("#{dir_path}/**/*").each do |file_path|
-  xml_string = File.read(file_path)
-  post_xml url_string, xml_string
+
+  file  = File.read(file_path)
+
+  employer_digest= Nokogiri::XML(file)
+  employer_digest.xpath("//cv:employer_event/cv:body/cv:organization", XML_NS).each do |node|
+
+    xml_string=node.canonicalize
+    post_xml url_string, xml_string
+  end
+
 end
+
+# XML_NS = {:cv => "http://openhbx.org/api/terms/1.0" }
+# Dir.glob("#{"/Users/saidineshmekala/MA/Feb-27/broker-cv"}/**/*").each do |file_path|
+#
+#   file  = File.read(file_path)
+#
+#   employer_digest= Nokogiri::XML(file)
+#   employer_digest.xpath("//cv:npn", XML_NS).each do |node|
+#     unless ids.include?(node.text)
+#     puts node
+#     end
+#   end
+#
+# end

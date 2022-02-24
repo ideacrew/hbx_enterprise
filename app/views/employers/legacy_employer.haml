@@ -10,7 +10,7 @@
     %ns1:fte_count= @cv_hash[:employer_profile][:plan_years].last[:fte_count]
     %ns1:pte_count= @cv_hash[:employer_profile][:plan_years].last[:pte_count]
     - active_broker = @cv_hash[:employer_profile][:broker_account].select{|account| account[:end_on].nil?}.first
-    - if  active_broker.present?
+    - if  active_broker.present? && active_broker[:start_on].present?
       %ns1:broker
         %ns1:npn_id= active_broker[:npn]
         %ns1:assignment_start_on= hiphen_saperated_date(active_broker[:start_on])
@@ -34,6 +34,5 @@
     - else
       = partial "shared/vcard2", :locals =>{:organization => @cv_hash}
     %ns1:exchange_id= @cv_hash[:id]
-    - status = ((hiphen_saperated_date(plan_year[:plan_year_start]) == hiphen_saperated_date(plan_year[:plan_year_end])) || (hiphen_saperated_date(plan_year[:plan_year_end]).to_date < hiphen_saperated_date(plan_year[:plan_year_start]).to_date + 1.year - 1.day))
-    %ns1:exchange_status= status ? 'inactive' : 'active'
-    %ns1:exchange_version= "2"
+    %ns1:exchange_status= 'active'
+    %ns1:exchange_version= "#{Date.today.yday}"

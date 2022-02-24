@@ -5,7 +5,9 @@
       %ns1:npn= broker_role[:npn].strip
       %ns1:license
         %ns1:license_number= broker_role[:npn].strip
-        %ns1:state= "DC"
+        -#%ns1:state= "ME"
+        -#%ns1:state= "DC"
+        %ns1:state= "MA"
       %ns2:vcard{:'xmlns:ns2'=>"urn:ietf:params:xml:ns:vcard-4.0"}
         %ns2:fn= individual[:person][:name_full].present? ? individual[:person][:name_full].strip : individual[:person][:name_first].strip + " " + individual[:person][:name_last].strip
         %ns2:n
@@ -25,7 +27,7 @@
                 %ns2:street= address[:address_2].strip
               %ns2:locality= address[:city].strip
               %ns2:region= address[:state].strip
-              %ns2:code{ :'xsi:type'=>"xsd:string"}= address[:postal_code].strip
+              %ns2:code= address[:postal_code].strip
             - if phone.present?
               - if (phone[:phone_number].present?) && (phone[:phone_number].gsub(/[^0-9]/,'').length == 10)
                 - phone_number = phone[:phone_number]
@@ -60,4 +62,6 @@
             %ns1:account_active_on= broker_role[:broker_payment_account][:account_active_on]
       %ns1:exchange_id= broker_role[:npn].strip
       %ns1:exchange_status= "ACTIVE"
-      %ns1:exchange_version= "15"
+      -#%ns1:exchange_version= "245"
+      -#%ns1:exchange_version= "13"
+      %ns1:exchange_version= "175"
