@@ -1,0 +1,44 @@
+environment: "<%= ENV['ENV_NAME'] %>"
+hbx_id: "<%= ENV['HBX_ID'] %>"
+invalid_argument_queue: "<%= ENV['HBX_ID'] %>.errors.invalid_arguements"
+processing_failure_queue: "<%= ENV['HBX_ID'] %>.errors.processing_failures"
+event_exchange: "<%= ENV['HBX_ID'] %>.<%= ENV['ENV_NAME'] %>.e.topic.events"
+event_publish_exchange: "<%= ENV['HBX_ID'] %>.<%= ENV['ENV_NAME'] %>.e.fanout.events"
+request_exchange: "<%= ENV['HBX_ID'] %>.<%= ENV['ENV_NAME'] %>.e.direct.requests"
+amqp_uri: "amqp://<%= ENV['RABBITMQ_USERNAME'] %>.<%= ENV['RABBITMQ_PASSWORD'] %>@<%= ENV['RABBITMQ_HOST'] %>:<%= ENV['RABBITMQ_PORT'] %>"
+email_from_address: "<%= ENV['EMAIL_FROM_ADDRESS'] %>"
+smtp_host: "<%= ENV['SMTP_HOST'] %>"
+smtp_port: "<%= ENV['SMTP_PORT'] %>"
+email_username: "<%= ENV['SMTP_USERNAME'] %>"
+email_password: "<%= ENV['SMTP_PASSWORD'] %>"
+email_domain: "<%= ENV['EMAIL_DOMAIN'] %>"
+account_creation_url: "<%= ENV['ACCOUNT_CREATION_URL'] || 'placeholder' %>"
+case_query_url: "<%= ENV['CASE_QUERY_URL'] || 'placeholder' %>"
+nfp_integration_url: "<%= ENV['NFP_INTEGRATION_URL'] || 'placeholder' %>"
+nfp_integration_user_id: "<%= ENV['NFP_INTEGRATION_USER_ID'] || 'placeholder' %>"
+nfp_integration_password: "<%= ENV['NFP_INTEGRATION_PASSWORD'] || 'placeholder' %>"
+osb_host: "<%= ENV['OSB_HOST'] || 'placeholder' %>"
+osb_username: "<%= ENV['OSB_USERNAME'] || 'placeholder' %>"
+osb_password: "<%= ENV['OSB_PASSWORD'] || 'placeholder' %>"
+osb_nonce: "0cM2ZYfv7N9jrQvUNkwMLw=="
+osb_created: "2014-11-02T18:40:36.185Z"
+employer_xml_drop_url: "<%= ENV['EMPLOYER_XML_DROP_URL'] || 'placeholder' %>"
+legacy_employer_xml_drop_url: "<%= ENV['EMPLOYER_XML_DROP_URL'] || 'placeholder' %>"
+pp_sftp_host: "<%= ENV['PP_SFTP_HOST'] || 'placeholder' %>"
+pp_sftp_username:  "<%= ENV['PP_SFTP_USERNAME'] || 'placeholder' %>"
+pp_sftp_password:  "<%= ENV['PP_SFTP_PASSWORD'] || 'placeholder' %>"
+pp_sftp_employer_digest_path:  "<%= ENV['PP_SFTP_EMPLOYER_DIGEST_PATH'] || 'placeholder' %>"
+pp_sftp_enrollment_path:  "<%= ENV['PP_SFTP_ENROLLMENT_PATH'] || 'placeholder' %>"
+residency_url: "<%= ENV['RESIDENCY_VERIFICATION_URL'] || 'placeholder' %>"
+legacy_carrier_mappings:
+  "aetna": AHI
+  "bestlife": BLHI
+  "delta dental": DDPA
+  "dominion": DMND
+  "dentegra": DTGA
+  "guardian": GARD
+  "carefirst": GHMSI
+  "kaiser": KFMASI
+  "metlife": META
+  "united health care": UHIC
+  "unitedhealthcare": UHIC
