@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8' ?>
-%brokers{:'xmlns:ns1'=>"urn:dchbx:brokerv1", :xmlns=>"urn:dchbx:brokerv1", :'xmlns:xsi'=>"http://www.w3.org/2001/XMLSchema-instance", :'xsi:schemaLocation'=>"urn:dchbx:broker broker_20130903.xsd", :'xmlns:xsd'=>"http://www.w3.org/2001/XMLSchema"}
+%brokers{:'xmlns:ns1'=>"urn:dchbx:brokerv1", :xmlns=>"urn:dchbx:brokerv1", :'xmlns:xsi'=>"http://www.w3.org/2001/XMLSchema-instance", :'xmlns:xsd'=>"http://www.w3.org/2001/XMLSchema"}
   - individual[:broker_roles].each do |broker_role|
     %ns1:broker
       %ns1:npn= broker_role[:npn].strip
