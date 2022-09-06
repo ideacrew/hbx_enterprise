@@ -36,8 +36,8 @@ module Listeners
                      r_code,
                      headers,
                      {
-                       policy_xml: enrollment_xml,
-                       service_response: r_payload
+                       policy_xml: enrollment_xml.encode('UTF-8', undef: :replace, replace: ''),
+                       service_response: r_payload.encode('UTF-8', undef: :replace, replace: '')
                      }.to_json)
         send_uploaded_notification(headers, r_payload, enrollment_xml)
         channel.acknowledge(delivery_info.delivery_tag, false)
@@ -47,8 +47,8 @@ module Listeners
                      r_code,
                      headers,
                      {
-                       policy_xml: enrollment_xml,
-                       service_response: r_payload
+                       policy_xml: enrollment_xml.encode('UTF-8', undef: :replace, replace: ''),
+                       service_response: r_payload.encode('UTF-8', undef: :replace, replace: ''),
                      }.to_json)
         throw :terminate, :failed
       end
