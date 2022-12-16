@@ -44,10 +44,23 @@ module Listeners
     end
 
     def on_message(delivery_info, properties, payload)
-      digest_xml = payload
+      digest_xml = fix_encoding(payload)
       headers = properties.headers || {}
       carrier_profile_name = headers["carrier_profile_name"]
       publish_single_legacy_xml(delivery_info, headers, carrier_profile_name, digest_xml)
+    end
+
+    def fix_encoding(xml)
+      return xml if xml.nil? || xml.blank?
+      if [Encoding::ASCII_8BIT].include?(xml.encoding)
+        xml.force_encoding(Encoding::UTF_8)
+      else
+        xml
+      end
+    end
+
+    def __check_encoding(string)
+      [Encoding::ASCII_8BIT].include?(string.encoding)
     end
 
     def self.queue_name
