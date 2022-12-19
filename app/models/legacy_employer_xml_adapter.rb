@@ -46,7 +46,7 @@ XMLCODE
   end
 
   def with_organization_strings
-    employer_digest.xpath("//cv:employer_event/cv:body/cv:organization", XML_NS).reverse.each do |node|
+    employer_digest.xpath("//cv:employer_events/cv:employer_event/cv:body/cv:organization", XML_NS).reverse.each do |node|
       parsed_org = parse_org(node, employer_digest)
       yield parsed_org if parsed_org
     end
@@ -70,6 +70,10 @@ XMLCODE
         node.remove
       end
     end
+    # Re-save document - Nokogiri#canonicalize can do some weird stuff if you pile
+    # enough changes into a big enough file.  Writing then re-reading the
+    # document reduces the chances of this.
+    @employer_digest =  Nokogiri::XML(@employer_digest.to_xml)
     with_organization_strings do |parsed_org|
       render_v1_xml_for(parsed_org)
     end
