@@ -14,7 +14,7 @@ RUN apt-get update && \
     apt-get -y install ruby2.3 ruby2.3-dev ruby-switch && \
     apt-get -yq dist-upgrade && \
     apt-get install -y git gcc openssl libyaml-dev libyaml-cpp-dev libffi-dev libffi6 libreadline-dev \
-                       zlibc libgdbm-dev libncurses-dev autoconf fontconfig unzip zip sshpass bzip2 libxrender1 libxext6 \
+                       zlibc zlib1g-dev libgdbm-dev libncurses-dev autoconf fontconfig unzip zip sshpass bzip2 libxrender1 libxext6 \
                        build-essential && \
     apt-get autoremove -y && \
     ruby-switch --set ruby2.3
