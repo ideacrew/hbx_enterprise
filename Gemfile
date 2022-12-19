@@ -27,7 +27,7 @@ gem 'rack-test', :require => 'rack/test', :group => 'test'
 # Padrino Stable Gem
 gem 'padrino', '0.12.4'
 gem 'bunny', '1.6.3'
-gem 'nokogiri', '1.6.5'
+gem 'nokogiri', '1.6.8'
 gem 'forkr', '1.0.2'
 gem 'net-ssh', '2.9.1'
 gem 'net-sftp', '2.1.2'
