@@ -2,17 +2,22 @@
 ### app/rails config ###
 ########################
 
-FROM ruby:2.3.3 AS app
+FROM ubuntu:18.04 AS app
 
 LABEL author="IdeaCrew"
 
 # Install required packages/libraries
 RUN apt-get update && \
+    apt-get -y install software-properties-common && \
+    add-apt-repository -y ppa:brightbox/ruby-ng && \
+    apt-get update && \
+    apt-get -y install ruby2.3 ruby2.3-dev ruby-switch && \
     apt-get -yq dist-upgrade && \
     apt-get install -y git gcc openssl libyaml-dev libyaml-cpp-dev libffi-dev libffi6 libreadline-dev \
                        zlibc libgdbm-dev libncurses-dev autoconf fontconfig unzip zip sshpass bzip2 libxrender1 libxext6 \
                        build-essential && \
-    apt-get autoremove -y
+    apt-get autoremove -y && \
+    ruby-switch --set ruby2.3
 
 #git gcc-c++ gcc libgcc glibc-devel glibc-headers glibc openssl-devel libyaml yaml-cpp-devel yaml-cpp libffi readline-devel zlib-devel gdbm-devel ncurses-devel autoconf unzip bzip2
 # Configure bundler and PATH, install bundler version
