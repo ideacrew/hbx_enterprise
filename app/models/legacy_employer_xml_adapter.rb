@@ -35,12 +35,25 @@ XMLCODE
     # Canonicalization is very expensive, better to hack it with adding the namespace
     namespaces = {}
     node.namespace_scopes.each do |ns_scope|
-      node.add_namespace_definition(ns_scope.prefix, ns_scope.href)
+      namespaces[ns_scope.prefix] = ns_scope.href
     end
-    # We have to write back out to XML because happymapper doesn't do
-    # the right thing without full canonicalization, or at least a trick
-    # that makes it seem like we did canonicalization
-    org = Parsers::Xml::Cv::OrganizationParser.parse(node.canonicalize).to_hash
+    the_parent = node.parent
+    while (the_parent)
+      the_parent.namespace_scopes.each do |ns_scope|
+        unless namespaces.has_key?(ns_scope.prefix)
+          namespaces[ns_scope.prefix] = ns_scope.href
+        end
+      end
+      if the_parent.respond_to?(:parent)
+        the_parent = the_parent.parent
+      else
+        the_parent = nil
+      end
+    end
+    namespaces.each_pair do |prefix, href|
+      node.add_namespace_definition(prefix, href)
+    end
+    org = Parsers::Xml::Cv::OrganizationParser.parse(node.to_xml).to_hash
     @employer_ids.push(employer_id)
     org
   end
