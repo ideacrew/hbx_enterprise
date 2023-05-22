@@ -32,7 +32,7 @@ ENV PATH $BUNDLE_BIN:$GEM_HOME/gems/bin:$PATH
 
 ARG BUNDLER_VERSION_OVERRIDE
 ENV BUNDLER_VERSION=$BUNDLER_VERSION_OVERRIDE
-RUN gem update --system && gem install bundler:$BUNDLER_VERSION
+RUN gem install bundler:$BUNDLER_VERSION
 
 # Configure app home directory
 ENV HOME /enterprise
