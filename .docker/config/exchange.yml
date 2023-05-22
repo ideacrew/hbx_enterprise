@@ -39,6 +39,7 @@ legacy_carrier_mappings:
   "guardian": GARD
   "carefirst": GHMSI
   "kaiser": KFMASI
+  "kaiser permanente": KFMASI
   "metlife": META
   "united health care": UHIC
   "unitedhealthcare": UHIC
