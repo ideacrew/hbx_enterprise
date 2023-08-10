@@ -2,6 +2,8 @@ require 'json'
 
 module Listeners
   class CuramApplicationCompletedListener < Amqp::Client
+    class EmptyCuramResponseError < StandardError; end
+    
     def on_message(delivery_info, properties, payload)
       query_service = ::Proxies::CuramCaseQuery.new
       payload = extract_ic_id(payload)
@@ -18,7 +20,7 @@ module Listeners
             :validation_errors => body.errors.full_messages
           })
         )
-        requeue(delivery_info)
+        raise EmptyCuramResponseError.new(payload)
       when "503"
         # We got a timeout - send an event
         service_failure_event("service_timeout", "503", payload)
