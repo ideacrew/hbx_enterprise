@@ -22,17 +22,20 @@ jobs:
           cd ruby-2.3.5 && ./configure && make -j 2
           sudo make install
       - uses: actions/checkout@v2
-      - name: Cache Gems
-        uses: actions/cache@v1
-        with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-hbx_enteprise-gems-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-hbx_enterprise-gems-${{ hashFiles('**/Gemfile.lock') }}
-      - name: bundle install
+      - name: Install Bundler and Rake
         run: |
           sudo gem install bundler -v '1.17.3'
-          bundle config path vendor/bundle
+          sudo gem install rake -v '10.4.2'
+      - name: Fetch and Patch Sigar
+        run: |
+          gem fetch sigar --version=0.7.3 && gem unpack sigar-0.7.3.gem && rm sigar-0.7.3.gem
+          cd sigar-0.7.3 && patch -p1 < ../gem_patches/sigar-0.7.3.patch
+          rake gem && cd ../
+      - name: Install patched Sigar
+        run: |
+          cp ./sigar-0.7.3/pkg/sigar-0.7.3.gem ./ && sudo gem install sigar-0.7.3.gem
+      - name: Install Gems
+        run: |
           bundle install
       - name: run tests
         run: |
