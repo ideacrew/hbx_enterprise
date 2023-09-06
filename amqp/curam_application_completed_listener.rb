@@ -1,1 +1,1 @@
-Forkr.new(Listeners::CuramApplicationCompletedListener, 10).run
+Listeners::CuramApplicationCompletedListener.run
