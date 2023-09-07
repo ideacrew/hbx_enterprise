@@ -7,7 +7,7 @@ module Listeners
     def on_message(delivery_info, properties, payload)
       query_service = ::Proxies::CuramCaseQuery.new
       payload = extract_ic_id(payload)
-      code, body = query_service.invoke(payload, 15)
+      code, body = query_service.invoke(payload, 30)
       case code.to_s
       when "406"
         # Invalid server response - send an event
