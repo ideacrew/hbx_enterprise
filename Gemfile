@@ -15,6 +15,7 @@ gem 'rake'
 gem 'activesupport', '4.1.8'
 gem 'activemodel', '4.1.8'
 gem 'faraday', '0.11.0'
+gem 'json', '1.8.3'
 
 # Component requirements
 gem 'mongoid', '5.1.1'
